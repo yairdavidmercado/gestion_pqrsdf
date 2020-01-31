@@ -12,11 +12,11 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/offcanvas/">
 
     <!-- Bootstrap core CSS -->
-<link href="/gestion_pqrsdf/assets/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<link href="gestion_pqrsdf/assets/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous">
-<link rel="stylesheet" href="/gestion_pqrsdf/assets/css/ajax/bootstrap.css">
-<link rel="stylesheet" href="/gestion_pqrsdf/assets/css/dataTables/dataTables.bootstrap4.min.css">
-<link href="/gestion_pqrsdf/assets/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<link href="/gestion_documental/assets/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
 <meta name="theme-color" content="#563d7c">
 
@@ -47,7 +47,7 @@
         width: 100%;
         height: 100%;
         z-index: 9999;
-        background: url('/gestion_pqrsdf/assets/img/loader.gif') 
+        background: url('/gestion_documental/assets/img/loader.gif') 
                     50% 50% no-repeat rgb(249,249,249);
       }
     </style>
@@ -239,13 +239,13 @@
       </div>
     </div>
   </main>
-<script src="/gestion_pqrsdf/assets/js/jquery.slim.min.js" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="/gestion_pqrsdf/assets/js/jquery.slim.min.js"><\/script>')</script>
-<script src="/gestion_pqrsdf/assets/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="/gestion_pqrsdf/assets/js/jquery.min.js"></script>
-<script src="/gestion_pqrsdf/assets/js/dataTables/jquery.dataTables.min.js"></script>
-<script src="/gestion_pqrsdf/assets/js/dataTables/dataTables.bootstrap4.min.js"></script>
-<script src="/gestion_pqrsdf/assets/js/gijgo.min.js" type="text/javascript"></script>
+<script src="/gestion_documental/assets/js/jquery.slim.min.js" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/gestion_documental/assets/js/jquery.slim.min.js"><\/script>')</script>
+<script src="/gestion_documental/assets/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 <script src="https://www.google.com/recaptcha/api.js" async></script>
 <script>
 $(function() {
