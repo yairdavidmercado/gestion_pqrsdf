@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.6">
-    <title>Glosas</title>
+    <title>PQRSF</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/offcanvas/">
 
@@ -62,7 +62,7 @@
         <p class="py-2 text-justify">Si desea interponer una Petición, Queja, Reclamo, Sugerencias, Denuncias o Felicitación o si desea radicar Glosas o Recobros con el fin de ser atendida por nuestra institución, por favor seleccione a continuación alguna de las siguientes opciones:</p>
         <div class="card">
             <div class="card-header">
-              <h5>Información de Glosas</h6>
+              <h5>Información Básica</h6>
             </div>
             <div class="card-body">
               <form role="form" onsubmit="event.preventDefault(); return GuardarSolicitud();" id="form_guardar" class="needs-validation">
@@ -71,6 +71,25 @@
                       <label for="tipo_solicitud">Tipo de solicitud</label>
                       <select name="tipo_solicitud" required id="tipo_solicitud" class="form-control tipo_solicitudes">
                         <option value="">Seleccionar</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                    <label for="firstName">Sedes</label>
+                      <select name="sede" required id="sede" class="form-control sedes">
+                        <option value="">Seleccionar</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="firstName">Área</label>
+                      <select name="area" required id="area" class="form-control">
+                        <option value="">Seleccionar</option>
+                        <option value="MEDICINA GENERAL">MEDICINA GENERAL</option>
+                        <option value="ODONTOLOGÍA">ODONTOLOGÍA</option>
+                        <option value="PROMOCIÓN Y PREVENCIÓN">PROMOCIÓN Y PREVENCIÓN</option>
+                        <option value="ENFERMERÍA">ENFERMERÍA</option>
+                        <option value="LABORATORIO CLÍNICO">LABORATORIO CLÍNICO</option>
+                        <option value="IMAGENOLOGÍA">IMAGENOLOGÍA</option>
+                        <option value="ADMISIÓN O FACTURACIÓN">ADMISIÓN O FACTURACIÓN</option>
                       </select>
                     </div>
                     <div class="col-md-3 mb-3">
@@ -86,18 +105,79 @@
                       <label for="lastName">Razón social</label>
                       <input type="text" class="form-control" name="razon_social" id="razon_social" placeholder="" required>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-3 mb-3">
+                      <label for="lastName">Primer nombre</label>
+                      <input type="text" class="form-control" name="nombre1" id="nombre1" placeholder="" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <label for="lastName">Segundo nombre</label>
+                      <input type="text" class="form-control" name="nombre2" id="nombre2" placeholder="" >
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <label for="lastName">Primer apellido</label>
+                      <input type="text" class="form-control" name="apellido1" id="apellido1" placeholder="" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <label for="lastName">Segundo apellido</label>
+                      <input type="text" class="form-control" name="apellido2" id="apellido2" placeholder="" >
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <label for="lastName">Fecha de nacimiento</label>
+                      <input type="text" class="form-control datepicker" name="fecha_nace" id="fecha_nace" placeholder="" required>                    
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <label for="lastName" style="width:100%">Sexo</label>
+                      <div class="form-check-inline" style="width:100%">
+                        <label>
+                        <input type="radio" value="M" required name="sexo"><span class="m-2">Hombre</span>
+                        <input type="radio" value="F" required name="sexo"><span class="m-1">Mujer</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
                       <label for="lastName">Correo electrónico</label>
                       <input type="email" class="form-control" name="email" id="email" placeholder="" required >
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-3 mb-3">
                       <label for="lastName">Teléfono</label>
                       <input type="text" class="form-control" name="telefono" id="telefono" placeholder="" >
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <label for="lastName">Celular</label>
+                      <input type="text" class="form-control" name="celular" id="celular" placeholder="" required >
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <label for="firstName">Etnia</label>
+                      <select name="etnia" required id="etnia" class="form-control tipo_etnia">
+                        <option value="">Seleccionar</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="firstName">Población</label>
+                      <select name="poblacion" required id="poblacion" class="form-control tipo_poblacion">
+                      <option value="">Seleccionar</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="firstName">EPS</label>
+                      <select name="eps" required id="eps" class="form-control entidades">
+                        <option value="">Seleccionar</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="firstName">Cliclos de vida</label>
+                      <select name="cliclo_vida" required id="cliclo_vida" class="form-control tipo_ciclo_vida">
+                      <option value="">Seleccionar</option>
+                      </select>
                     </div>
                   </div>
                   <hr>
                   <div class="row">
-                    <div class="col-md-12 mb-3">
+                    <div class="col-md-3 mb-3">
+                      <label for="lastName">Fecha del suceso</label>
+                      <input type="text" class="form-control datepicker" name="fecha_suceso" id="fecha_suceso" placeholder="" required>                    
+                    </div>
+                    <div class="col-md-9 mb-3">
                       <label for="lastName">Asunto</label>
                       <input type="text" class="form-control datepicker" name="asunto" id="asunto" placeholder="" required>                    
                     </div>
