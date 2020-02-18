@@ -53,7 +53,10 @@
     </style>
   </head>
   <body class="bg-light mx-auto">
+  <?php require("menu.php"); ?>
   <div class="loader"></div>
+  <br>
+  <br>
   <main role="main" class="container py-5">
     <div class="row">
       <div class="col-md-12 order-md-1">
@@ -70,33 +73,35 @@
                     <div class="col-md-6 mb-3">
                       <label for="tipo_solicitud">Tipo de solicitud</label>
                       <select name="tipo_solicitud" required id="tipo_solicitud" class="form-control tipo_solicitudes">
+                        <option selected value="0">Glosas</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                    <label for="firstName">Sedes</label>
+                      <select name="sede" required id="sede" class="form-control sedes">
                         <option value="">Seleccionar</option>
                       </select>
                     </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="firstName">Tipo de identificación</label>
-                      <select name="tipo_identificacion" required id="tipo_identificacion" class="form-control tipo_identificaciones">
+                    <div class="col-md-6 mb-3">
+                      <label for="firstName">Área</label>
+                      <select name="area" required id="area" class="form-control">
+                        <option value="">Seleccionar</option>
+                        <option value="MEDICINA GENERAL">MEDICINA GENERAL</option>
+                        <option value="ODONTOLOGÍA">ODONTOLOGÍA</option>
+                        <option value="PROMOCIÓN Y PREVENCIÓN">PROMOCIÓN Y PREVENCIÓN</option>
+                        <option value="ENFERMERÍA">ENFERMERÍA</option>
+                        <option value="LABORATORIO CLÍNICO">LABORATORIO CLÍNICO</option>
+                        <option value="IMAGENOLOGÍA">IMAGENOLOGÍA</option>
+                        <option value="ADMISIÓN O FACTURACIÓN">ADMISIÓN O FACTURACIÓN</option>
                       </select>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="lastName">Identificación</label>
-                      <input type="text" class="form-control" name="identificacion" id="identificacion" placeholder="Número" required>
-                    </div>
-                    <div class="col-md-12 mb-3">
-                      <label for="lastName">Razón social</label>
-                      <input type="text" class="form-control" name="razon_social" id="razon_social" placeholder="" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <label for="lastName">Correo electrónico</label>
-                      <input type="email" class="form-control" name="email" id="email" placeholder="" required >
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <label for="lastName">Teléfono</label>
-                      <input type="text" class="form-control" name="telefono" id="telefono" placeholder="" >
                     </div>
                   </div>
                   <hr>
                   <div class="row">
+                    <div style="display:none" class="col-md-3 mb-3">
+                      <label for="lastName">Fecha del suceso</label>
+                      <input type="text" class="form-control datepicker" name="fecha_suceso" id="fecha_suceso" placeholder="" required>                    
+                    </div>
                     <div class="col-md-12 mb-3">
                       <label for="lastName">Asunto</label>
                       <input type="text" class="form-control datepicker" name="asunto" id="asunto" placeholder="" required>                    
@@ -155,8 +160,8 @@
 $(function() {
   VerEntidades()
   VerSedes()
-  VerTipoSolicitud()
-  TipoIdentificacion()
+  //VerTipoSolicitud()
+  //TipoIdentificacion()
   $(".loader").css("display", "none")
 
   $('#fecha_nace').datepicker({

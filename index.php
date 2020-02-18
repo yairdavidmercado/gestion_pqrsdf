@@ -94,8 +94,8 @@
 <script>
   function validar_sesion() {
     var values = { 
-        id: $('#usuario').val(),
-        pass: $('#password').val()
+        parametro1: $('#usuario').val(),
+        parametro2: $('#password').val()
     };
     $.ajax({
     type : 'POST',
@@ -103,10 +103,9 @@
     url: 'php/sel_usuarios.php',
     success: function(respuesta) {
        let obj = JSON.parse(respuesta)
-       if (obj.success) {
-        $.each(obj.resultado, function(index, elemento) {
-          window.location.href = "home.php";
-        }); 
+       //alert(JSON.stringify(obj[0].length))
+       if (obj[0].length > 0 ) {
+          window.location.href = "pqrsdf.php";
        }else{
          alert('Datos invalidos para el acceso')
        }

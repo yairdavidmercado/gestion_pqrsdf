@@ -226,7 +226,8 @@ $(function() {
                 let obj = JSON.parse(respuesta)
                 if (obj.success) {
                     if (obj.message != "0") {
-                        alert("Hemos enviado una solicitud de verificación de inicio de sesión a tu cuenta de correo.")
+                        alert("Registro exitoso, puedes iniciar sesión.")
+                        //alert("Hemos enviado una solicitud de verificación de inicio de sesión a tu cuenta de correo.")
                         window.location.href = '/gestion_pqrsdf/registrate.php';
                     }else{
                         alert("El usuario ya se encuentra registrado.")

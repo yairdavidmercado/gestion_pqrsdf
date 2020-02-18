@@ -44,22 +44,6 @@
 			$tipo_solicitud				= $_POST["tipo_solicitud"];
 			$sede 						= $_POST["sede"];
 			$area 						= $_POST["area"];
-			$tipo_identificacion 		= $_POST["tipo_identificacion"];
-			$identificacion 			= $_POST["identificacion"];
-			$razon_social 				= $_POST["razon_social"];
-			$nombre1 					= $_POST["nombre1"];
-			$nombre2 					= $_POST["nombre2"];
-			$Apellido1 					= $_POST["apellido1"];
-			$Apellido2 					= $_POST["apellido2"];
-			$fecha_nace 				= $_POST["fecha_nace"];
-			$sexo 						= $_POST["sexo"];
-			$email 						= $_POST["email"];
-			$telefono 					= $_POST["telefono"];
-			$celular 					= $_POST["celular"];
-			$etnia 						= $_POST["etnia"];
-			$poblacion 					= $_POST["poblacion"];
-			$eps 						= $_POST["eps"];
-			$cliclo_vida 				= $_POST["cliclo_vida"];
 			$fecha_suceso 				= $_POST["fecha_suceso"];
 			$asunto 					= $_POST["asunto"];
 			$descripcion 				= $_POST["descripcion"];
@@ -69,15 +53,12 @@
 
 		try{
 			pg_query("BEGIN") or die("Could not start transaction\n");
-			$result = pg_query($conn, "SELECT conse FROM tercero LIMIT 1 ;");
-			$fch = pg_fetch_row($result);
-			$res1 = true;
+			$result = pg_query($conn, "INSERT INTO radica_doc(id_radi, id_empleado, id_tercero, id_tramite, conse_tramite_det, 
+            dias_tramite, id_oficina, asunto, observaciones, leido, respuesta, 
+            fecha_radi, hora_radi, fecha_crea, nombre_otro, direccion_otro, 
+            tipo_soporte, folio, ruta_radi, ruta_respuesta, obser_segui) VALUES ('176','12333', '2891', '2891', '2', '12/05/2019', '10:30');");
+			$fch = pg_affected_rows($result);
 			if ($fch[0]) {
-				$res1 = pg_query($conn, "INSERT INTO tercero(conse, id_tercero, razon, direccion, telefono)VALUES ('2891','1234', 'prueba', 'mz rl', '7894543');");
-			}
-			$res2 = pg_query($conn, "INSERT INTO radica_doc(conse,id_radi, id_empleado, id_tercero, id_oficina, fecha_radi, hora_radi) VALUES ('176','12333', '2891', '2891', '2', '12/05/2019', '10:30');");
-
-			if ($res1 and $res2) {
 				$response["success"] = true;
 				$response["message"] = "Commiting transaction.";
 				pg_query("COMMIT") or die("Transaction commit failed\n");
