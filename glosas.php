@@ -1,4 +1,13 @@
-
+<?php
+// start a session
+session_start();
+ if (!isset($_SESSION['idUser'])) {
+    header ("Location:index.php"); 
+ }else if ($_SESSION['Tipo_persona'] == 1) {
+  header ("Location:pqrsdf.php");
+ } 
+// manipulate session variables
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -12,9 +21,12 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/offcanvas/">
 
     <!-- Bootstrap core CSS -->
+<link rel="icon" type="image/ico" href="/gestion_pqrsdf/assets/img/ideas.ico">
 <link href="/gestion_pqrsdf/assets/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 <link rel="stylesheet" href="/gestion_pqrsdf/assets/css/ajax/bootstrap.css">
+<link href="assets/css/select2.min.css" rel="stylesheet">
+<link href="assets/css/bootstrap-datepicker.css" rel="stylesheet">
 <link rel="stylesheet" href="/gestion_pqrsdf/assets/css/dataTables/dataTables.bootstrap4.min.css">
 <link href="/gestion_pqrsdf/assets/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
@@ -72,27 +84,20 @@
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <label for="tipo_solicitud">Tipo de solicitud</label>
-                      <select name="tipo_solicitud" required id="tipo_solicitud" class="form-control tipo_solicitudes">
-                        <option selected value="0">Glosas</option>
+                      <select style="width:100%" name="tipo_solicitud" required id="tipo_solicitud" class="form-control tipo_solicitudes">
+                        <option selected value="">Seleccionar</option>
                       </select>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div style="display:none" class="col-md-6 mb-3">
                     <label for="firstName">Sedes</label>
-                      <select name="sede" required id="sede" class="form-control sedes">
-                        <option value="">Seleccionar</option>
+                      <select style="width:100%" name="sede" value="1" required id="sede" class="form-control sedes">
+                        <option value="61">Seleccionar</option>
                       </select>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div style="display:none" class="col-md-6 mb-3">
                       <label for="firstName">Área</label>
-                      <select name="area" required id="area" class="form-control">
-                        <option value="">Seleccionar</option>
-                        <option value="MEDICINA GENERAL">MEDICINA GENERAL</option>
-                        <option value="ODONTOLOGÍA">ODONTOLOGÍA</option>
-                        <option value="PROMOCIÓN Y PREVENCIÓN">PROMOCIÓN Y PREVENCIÓN</option>
-                        <option value="ENFERMERÍA">ENFERMERÍA</option>
-                        <option value="LABORATORIO CLÍNICO">LABORATORIO CLÍNICO</option>
-                        <option value="IMAGENOLOGÍA">IMAGENOLOGÍA</option>
-                        <option value="ADMISIÓN O FACTURACIÓN">ADMISIÓN O FACTURACIÓN</option>
+                      <select name="area" required id="area" value="1" class="form-control areas">
+                        <option value="1">Seleccionar</option>
                       </select>
                     </div>
                   </div>
@@ -100,7 +105,7 @@
                   <div class="row">
                     <div style="display:none" class="col-md-3 mb-3">
                       <label for="lastName">Fecha del suceso</label>
-                      <input type="text" class="form-control datepicker" name="fecha_suceso" id="fecha_suceso" placeholder="" required>                    
+                      <input type="text" class="form-control fecha" name="fecha_suceso" id="fecha_suceso" placeholder="">                    
                     </div>
                     <div class="col-md-12 mb-3">
                       <label for="lastName">Asunto</label>
@@ -152,28 +157,37 @@
 <script>window.jQuery || document.write('<script src="/gestion_pqrsdf/assets/js/jquery.slim.min.js"><\/script>')</script>
 <script src="/gestion_pqrsdf/assets/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="/gestion_pqrsdf/assets/js/jquery.min.js"></script>
+<script src="assets/js/select2.full.js"></script>
+<script src="assets/js/bootstrap-datepicker.min.js"></script>
 <script src="/gestion_pqrsdf/assets/js/dataTables/jquery.dataTables.min.js"></script>
 <script src="/gestion_pqrsdf/assets/js/dataTables/dataTables.bootstrap4.min.js"></script>
-<script src="/gestion_pqrsdf/assets/js/gijgo.min.js" type="text/javascript"></script>
 <script src="https://www.google.com/recaptcha/api.js" async></script>
 <script>
 $(function() {
   VerEntidades()
-  VerSedes()
-  //VerTipoSolicitud()
+  // VerSedes()
+  // VerAreas()
+  VerTipoSolicitud(2)
   //TipoIdentificacion()
   $(".loader").css("display", "none")
 
-  $('#fecha_nace').datepicker({
-      uiLibrary: 'bootstrap4'
+  $('.fecha').datepicker({
+    format: "yyyy-mm-dd",
+    todayHighlight: true,
+    language:"es"                       
   });
-  $('#fecha_suceso').datepicker({
-      uiLibrary: 'bootstrap4'
-  });
+
+  var d = new Date();
+  var currMonth = d.getMonth();
+  var currYear = d.getFullYear();
+  var currDay = d.getDate();
+  var startDate = new Date(currYear, currMonth, currDay);
+  $(".fecha").datepicker("setDate", startDate)
 
   $("#soporte_adjunto").change(function(){
     showFileSize()
   });
+
 });
 
 function GuardarSolicitud() {
@@ -194,7 +208,8 @@ function GuardarSolicitud() {
       $(".loader").css("display", "none")
       let obj = JSON.parse(respuesta)
       if (obj.success) {
-        
+        alert("Su Glosa se ha enviado correctamente, Revisa en la bandeja de entrada o por seguridad de su servidor de correo en spam o correos no deseados.")
+        window.location.href = 'glosas.php';
       }else{
         alert(obj.message)
       }
@@ -235,7 +250,7 @@ function GuardarSolicitud() {
     }else if (ValidateExtension()) {
         file = input.files[0];
         var FileSize = file.size / 1024 / 1024; // in MB
-        if (FileSize > 5) {
+        if (FileSize > 50000) {
             alert('El archivo seleccionado ha excedido los 5MB permitidos')
             $("#soporte_adjunto").val("")
             $(".text-validation-file").html("")
@@ -281,7 +296,7 @@ function ValidateExtension() {
       $.ajax({
       type : 'POST',
       data: values,
-      url: '/gestion_pqrsdf/php/sel_recursos.php',
+      url: 'php/sel_recursos.php',
       beforeSend: function() {
           $(".loader").css("display", "inline-block")
       },
@@ -292,7 +307,11 @@ function ValidateExtension() {
         $.each(obj[0], function( index, val ) {
           fila += '<option value="'+val.cod_entidad+'">'+val.nombre_entidad+'</option>'
         });
-        $(".entidades").html('<option value="">Seleccionar</option>'+fila)
+        $(".entidades").html('<option value="">EPS</option>'+fila)
+        let placeholder = "Seleccione EPS";
+        $(".entidades").select2( {
+                placeholder: placeholder,
+            });
       },
       error: function() {
         $(".loader").css("display", "none")
@@ -311,7 +330,7 @@ function ValidateExtension() {
       $.ajax({
       type : 'POST',
       data: values,
-      url: '/gestion_pqrsdf/php/sel_recursos.php',
+      url: 'php/sel_recursos.php',
       beforeSend: function() {
           $(".loader").css("display", "inline-block")
       },
@@ -323,6 +342,10 @@ function ValidateExtension() {
           fila += '<option value="'+val.id_sede+'">'+val.nombre_sede+'</option>'
         });
         $(".sedes").html('<option value="">Seleccionar</option>'+fila)
+        let placeholder = "Seleccione la sede";
+        $(".sedes").select2( {
+            placeholder: placeholder,
+        });
       },
       error: function() {
         $(".loader").css("display", "none")
@@ -332,16 +355,16 @@ function ValidateExtension() {
     
   }
 
-  function VerTipoSolicitud() {
+  function VerTipoSolicitud(id) {
       let values = { 
             cod: '3',
-            parametro1: "1",
+            parametro1: id,
             parametro2: "1"
       };
       $.ajax({
       type : 'POST',
       data: values,
-      url: '/gestion_pqrsdf/php/sel_recursos.php',
+      url: 'php/sel_recursos.php',
       beforeSend: function() {
           $(".loader").css("display", "inline-block")
       },
@@ -353,6 +376,10 @@ function ValidateExtension() {
           fila += '<option value="'+val.id_tramite+'">'+val.nombre_tramite+'</option>'
         });
         $(".tipo_solicitudes").html('<option value="">Seleccionar</option>'+fila)
+        let placeholder = "Seleccione la sede";
+        $(".tipo_solicitudes").select2( {
+            placeholder: placeholder,
+        });
       },
       error: function() {
         $(".loader").css("display", "none")
@@ -383,6 +410,40 @@ function ValidateExtension() {
           fila += '<option value="'+val.conse_tipo_id+'">'+val.tipo_id+'</option>'
         });
         $(".tipo_identificaciones").html('<option value="">Seleccionar</option>'+fila)
+      },
+      error: function() {
+        $(".loader").css("display", "none")
+        console.log("No se ha podido obtener la información");
+      }
+    });
+    
+  }
+
+  function VerAreas() {
+      let values = { 
+            cod: '8',
+            parametro1: "1",
+            parametro2: "1"
+      };
+      $.ajax({
+      type : 'POST',
+      data: values,
+      url: 'php/sel_recursos.php',
+      beforeSend: function() {
+          $(".loader").css("display", "inline-block")
+      },
+      success: function(respuesta) {
+        $(".loader").css("display", "none")
+        let obj = JSON.parse(respuesta)
+        let fila = ''
+        $.each(obj[0], function( index, val ) {
+          fila += '<option value="'+val.conse+'">'+val.nombre+'</option>'
+        });
+        $(".areas").html('<option value="">área</option>'+fila)
+        let placeholder = "Seleccione área";
+        $(".areas").select2( {
+                placeholder: placeholder,
+            });
       },
       error: function() {
         $(".loader").css("display", "none")

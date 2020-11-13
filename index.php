@@ -1,4 +1,11 @@
-
+<?php
+// start a session
+session_start();
+//  if (!isset($_SESSION['idUser'])) {
+//     header ("Location:/gestion_pqrsdf/index.php"); 
+//  }
+// manipulate session variables
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -8,13 +15,12 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
     <title>Iniciar sesión</title>
-
+    <link rel="icon" type="image/ico" href="/gestion_pqrsdf/assets/img/ideas.ico">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/">
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-
-
+    
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -75,23 +81,39 @@
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         }
+
+        .loader{
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url('assets/img/loader.gif') 
+                    50% 50% no-repeat rgb(249,249,249);
+      }
     </style>
   </head>
   <body class="text-center">
+  <div class="loader"></div>
     <form onsubmit="validar_sesion(); return false;" methods="POST" class="form-signin">
-      <img class="mb-4" src="assets/img/logo.svg" alt="" width="80" height="80">
+      <div class="mb-3"><img src="assets/img/logos.png" width="200px" alt="" srcset=""></div>
       <p>Iniciar sesión</p>
-      <label for="inputEmail" class="sr-only">Usuario</label>
-      <input type="text" id="usuario" class="form-control" placeholder="Usuario" required autofocus>
+      <label for="inputEmail" class="sr-only">Email</label>
+      <input type="text" id="usuario" class="form-control" placeholder="Email" required autofocus>
       <label for="inputPassword" class="sr-only">Contraseña</label>
       <input type="password" id="password" class="form-control" placeholder="Contraseña" required>
-      <button class="btn btn-lg btn-primary btn-block" style="color:#fff" type="submit"><b>Iniciar sesión</b></button>
-      <p class="text-center">¿No tienes una cuenta? <a href="/gestion_pqrsdf/registrate.php">Registrate</a> </p>
+      <button class="btn btn-lg btn-success btn-block" style="color:#fff" type="submit"><b>Iniciar sesión</b></button>
+      <p class=" float-left"><a href="/gestion_pqrsdf/recover.php">¿Olvidaste tu contraseña?</a> </p>
+      <p class="text-right"><a href="/gestion_pqrsdf/registrate.php">Registrate</a> </p>
     </form>
 
     <script src="assets/js/jquery.slim.min.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="assets/js/ajax/jquery.min.js"></script>
 <script>
+$(function() {
+  $(".loader").css("display", "none")
+});
   function validar_sesion() {
     var values = { 
         parametro1: $('#usuario').val(),
@@ -101,12 +123,17 @@
     type : 'POST',
     data: values,
     url: 'php/sel_usuarios.php',
+    beforeSend: function() {
+        $(".loader").css("display", "inline-block")
+    },
     success: function(respuesta) {
        let obj = JSON.parse(respuesta)
        //alert(JSON.stringify(obj[0].length))
        if (obj[0].length > 0 ) {
+        $(".loader").css("display", "none")
           window.location.href = "pqrsdf.php";
        }else{
+        $(".loader").css("display", "none")
          alert('Datos invalidos para el acceso')
        }
     },
