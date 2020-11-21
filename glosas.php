@@ -100,6 +100,41 @@ session_start();
                         <option value="1">Seleccionar</option>
                       </select>
                     </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="firstName" style="font-size:12px;">¿ Usted desea ser notificado del trámite de esta solicitud ?</label>
+                      <select name="notificar" required id="notificar" onchange="notificaciones(this.value)" class="form-control ">
+                        <option value="">Seleccionar</option>
+                        <option value="SI">SI</option>
+                        <option value="NO">NO</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-12 mb-3" style="background-color:#f0f0f0; display:none;">
+                      <label for="firstName" style="font-size:12px;">Seleccione el medio por el cual desea ser notificado de esta solicitud:</label>
+                      <br>
+                      <label for="firstName" style="font-size:12px;">Usted debe diligenciar la dirección o correo electrónico</label>
+                      <div class="row">
+                        <div class="col-sm-1">
+                          <input name="tipo_notificacion" onclick="tipoEnvio('correo')" value="correo" disabled required type="radio">
+                        </div>
+                        <div class="col-md-3">
+                        <label for="firstName" style="font-size:12px;">¿Correo electrónico?</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input class="form-control input-sm" disabled required name="text_notificacion" id="id_text_email" type="email">
+                        </div>
+                        <div class="col-sm-1">
+                          <input name="tipo_notificacion" onclick="tipoEnvio('direccion')" value="direccion" disabled required type="radio">
+                        </div>
+                        <div class="col-md-3">
+                        <label for="firstName" style="font-size:12px;">¿Dirección?</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input class="form-control input-sm" disabled required name="text_notificacion" id="id_text_direccion" type="text">
+                        </div>
+                      </div>
+                      <label style="font-size:11px;" for="">Nota: Señor usuario no existen costos de reproducción asociados a la respuesta de su solicitud</label>
+                    </div>
                   </div>
                   <hr>
                   <div class="row">
@@ -353,6 +388,30 @@ function ValidateExtension() {
       }
     });
     
+  }
+
+  function notificaciones(value) {
+    if (value == 'SI') {
+      $( "input[name*='tipo_notificacion']" ).prop( "disabled", false );
+      $("#content_notificacion").prop("style", "background-color:#f0f0f0;display:block" );
+    }else{
+      $( "input[name*='tipo_notificacion']" ).prop( "disabled", true );
+      $( "input[name*='tipo_notificacion']" ).prop( "checked", false );
+      $( "input[name*='text_notificacion']" ).prop( "disabled", true );
+      $( "input[name*='text_notificacion']" ).val('');
+      $("#content_notificacion").prop("style", "background-color:#f0f0f0;display:none" );
+    }
+  }
+
+  function tipoEnvio(value) {
+    if (value == 'correo') {
+      $( "#id_text_email" ).prop( "disabled", false );
+      $( "#id_text_direccion" ).prop( "disabled", true );
+    }else if(value == 'direccion'){
+      $( "#id_text_email" ).prop( "disabled", true );
+      $( "#id_text_direccion" ).prop( "disabled", false );
+    }
+    $( "input[name*='text_notificacion']" ).val('');
   }
 
   function VerTipoSolicitud(id) {

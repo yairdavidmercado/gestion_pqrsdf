@@ -26,7 +26,7 @@
 	if($resp['success']) {
 
 		// connect and login to FTP server
-		$ftp_server = "170.246.112.3";
+		$ftp_server = "190.121.135.236";
 		$ftp_username   = "anonymous";
 		$ftp_password   =  "anonymous@example.com";
 		$ftp_conn = ftp_connect($ftp_server) or die("Could not connect to $ftp_server");
@@ -60,6 +60,16 @@
 				$asunto 					= $_POST["asunto"];
 				$descripcion 				= $_POST["descripcion"];
 				$url 						= $remote_file_path;
+			
+				$notificacion 				= $_POST["notificar"];
+
+				$tipo_notificacion 			= "";
+				$text_notificacion 			= "";
+
+				if ($notificacion == 'SI') {
+					$tipo_notificacion 			= $_POST["tipo_notificacion"];
+					$text_notificacion 			= $_POST["text_notificacion"];
+				}
 
 			$conn = pg_connect("user=".DB_USER." password=".DB_PASS." port=".DB_PORT." dbname=".DB_NAME." host=".DB_HOST) or die ("Could not connect to server\n");
 
@@ -69,7 +79,7 @@
 				$fch3 = pg_fetch_row($result3);
 				$result2 = pg_query($conn, "SELECT NOW()::date;");
 				$fch2 = pg_fetch_row($result2);
-				$result = pg_query($conn, "SELECT guardar_pqrs('$idUser', '$tipo_solicitud', '$sede', '$area', '$fecha_suceso', '$asunto', '$descripcion', '$url', '$conse');");
+				$result = pg_query($conn, "SELECT guardar_pqrs('$idUser', '$tipo_solicitud', '$sede', '$area', '$fecha_suceso', '$asunto', '$descripcion', '$url', '$conse', '$notificacion', '$tipo_notificacion', '$text_notificacion');");
 				$fch = pg_fetch_row($result);
 				$strArr = explode(",", $fch[0]);
 				//echo $fch[0]; 

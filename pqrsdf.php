@@ -71,8 +71,13 @@ session_start();
     <div class="row">
       <div class="col-md-12 order-md-1">
       <div class="float-right"><img src="assets/img/logos.png" width="300px" alt="" srcset=""></div>
-        <h2 class="py-3 mb-3">Bienvenido</h2>
-        <p class="py-2 text-justify">Si desea interponer una Petición, Queja, Reclamo, Sugerencias, Denuncias o Felicitación o si desea radicar Glosas o Recobros con el fin de ser atendida por nuestra institución, por favor seleccione a continuación alguna de las siguientes opciones:</p>
+        <h4 class="py-3 mb-3 mr-3">BIENVENIDO AL FORMULARIO DE REGISTRO PQRSFD DE LA E.S.E VIDASINÚ</h4>
+        <p class="py-2 text-justify">A través de esta herramienta usted podrá: Presentar peticiones, quejas, reclamos, sugerencias, felicitaciones y denuncias por motivos de interés general o particular. Antes de registrar su PQRSFD, recuerde tener en cuenta la siguiente información:</p>
+        <p class="py-2 text-justify">Peticion: Solicitud del usuario frente a un tema en la prestación de un servicio.</p>
+        <p class="py-2 text-justify">Queja: Manifestación mediante la cual se pone en conocimiento conductas inadecuadas por parte de funcionarios en el ejercicio de su cargo.</p>
+        <p class="py-2 text-justify">Reclamo: Manifestación mediante la cual se pone en conocimiento deficiencias en la prestación de los eervicios que ofrece la entidad.</p>
+        <p class="py-2 text-justify">Sugerencia: Recomendación o propuesta que formula un para el mejoramiento de las funciones, servicios, metas y objetivos de la entidad.</p>
+        <p class="py-2 text-justify">Felicitación: Manifestación de reconocimiento o logro alcanzado por una persona o entidad.</p>
         <div class="card">
             <div class="card-header">
               <h5>Información PQRSDF</h6>
@@ -107,7 +112,7 @@ session_start();
                       </select>
                     </div>
 
-                    <div class="col-md-12 mb-3" style="background-color:#f0f0f0">
+                    <div class="col-md-12 mb-3" id="content_notificacion" style="background-color:#f0f0f0; display:none;">
                       <label for="firstName" style="font-size:12px;">Seleccione el medio por el cual desea ser notificado de esta solicitud:</label>
                       <br>
                       <label for="firstName" style="font-size:12px;">Usted debe diligenciar la dirección o correo electrónico</label>
@@ -171,7 +176,7 @@ session_start();
                       </div>
                     </div>
                     <div class="col-md-12 mb-3 d-flex justify-content-center">
-                        <div class="g-recaptcha" data-sitekey="6LcW7vIUAAAAAEkAefkRqcYjqp_f9jz7STAERHeT"></div>
+                        <div class="g-recaptcha" data-sitekey="6LcFrNMUAAAAABO3lJiim0IfjTeIKxXiEeIG5Xhe"></div>
                     </div>
                     <div class="col-md-12 mb-3 d-flex justify-content-center">
                       <button type="submit" class="btn btn-success mr-2">Registrar petición</button>
@@ -396,11 +401,13 @@ function ValidateExtension() {
   function notificaciones(value) {
     if (value == 'SI') {
       $( "input[name*='tipo_notificacion']" ).prop( "disabled", false );
+      $("#content_notificacion").prop("style", "background-color:#f0f0f0;display:block" );
     }else{
       $( "input[name*='tipo_notificacion']" ).prop( "disabled", true );
       $( "input[name*='tipo_notificacion']" ).prop( "checked", false );
       $( "input[name*='text_notificacion']" ).prop( "disabled", true );
       $( "input[name*='text_notificacion']" ).val('');
+      $("#content_notificacion").prop("style", "background-color:#f0f0f0;display:none" );
     }
   }
 
